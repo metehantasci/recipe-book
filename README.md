@@ -94,7 +94,17 @@ The project follows a feature-based architecture.
 
 ## Screenshots
 
-Screenshots will be added here.
+### Home Page
+
+![Home](Ekran%20görüntüsü%202026-07-04%20151249.png)
+
+### Recipe Detail
+
+![Recipe Detail](Ekran%20görüntüsü%202026-07-04%20151258.png)
+
+### Recipe Form
+
+![Recipe Form](Ekran%20görüntüsü%202026-07-04%20151322.png)
 
 ## Developer
 
