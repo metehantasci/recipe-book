@@ -1,0 +1,383 @@
+<div class="recipe-form-page">
+
+  <div class="recipe-form-container">
+
+    <div class="form-header">
+
+      <div class="header-icon">
+        🍳
+      </div>
+
+      <div class="header-text">
+        <h1>
+          {{ isEditMode ? 'Tarifi Düzenle' : 'Yeni Tarif Ekle' }}
+        </h1>
+
+        <p>
+          Tarifini ekle, diğer kullanıcılarla paylaş ve kendi tarif defterini oluştur.
+        </p>
+      </div>
+
+    </div>
+
+    <form
+      [formGroup]="recipeForm"
+      (ngSubmit)="onSubmit()">
+
+      <div class="form-grid">
+
+        <!-- Tarif Adı -->
+
+        <div class="form-group full-width">
+
+          <label>Tarif Adı</label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              🍽️
+            </span>
+
+            <input
+              type="text"
+              formControlName="title"
+              placeholder="Örn: Mantarlı Kremalı Makarna">
+
+          </div>
+
+          <div
+            class="error"
+            *ngIf="recipeForm.get('title')?.touched && recipeForm.get('title')?.invalid">
+
+            <span *ngIf="recipeForm.get('title')?.errors?.['required']">
+              Tarif adı zorunludur.
+            </span>
+
+            <span *ngIf="recipeForm.get('title')?.errors?.['minlength']">
+              En az 3 karakter olmalıdır.
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- Kategori -->
+
+        <div class="form-group">
+
+          <label>Kategori</label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              📂
+            </span>
+
+            <select formControlName="category">
+
+              <option value="">Kategori Seçiniz</option>
+
+              <option>Pizza</option>
+              <option>Burger</option>
+              <option>Makarna</option>
+              <option>Tavuk</option>
+              <option>Et Yemekleri</option>
+              <option>Çorba</option>
+              <option>Salata</option>
+              <option>Sandviç</option>
+              <option>Fast Food</option>
+              <option>Pilav</option>
+              <option>Hamur İşleri</option>
+              <option>Kahvaltı</option>
+              <option>Vejetaryen</option>
+              <option>Tatlı</option>
+              <option>Atıştırmalık</option>
+              <option>İçecekler</option>
+              <option>Izgara</option>
+              <option>Deniz Ürünleri</option>
+
+            </select>
+
+          </div>
+
+          <div
+            class="error"
+            *ngIf="recipeForm.get('category')?.touched && recipeForm.get('category')?.invalid">
+
+            Kategori seçiniz.
+
+          </div>
+
+        </div>
+
+        <!-- Zorluk -->
+
+        <div class="form-group">
+
+          <label>Zorluk</label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              ⭐
+            </span>
+
+            <select formControlName="difficulty">
+
+              <option>Kolay</option>
+              <option>Orta</option>
+              <option>Zor</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <!-- Süre -->
+
+        <div class="form-group">
+
+          <label>Hazırlama Süresi</label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              ⏱️
+            </span>
+
+            <input
+              type="number"
+              formControlName="duration"
+              placeholder="30">
+
+          </div>
+
+        </div>
+
+        <!-- Porsiyon -->
+
+        <div class="form-group">
+
+          <label>Porsiyon</label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              👥
+            </span>
+
+            <input
+              type="number"
+              formControlName="servings"
+              placeholder="4">
+
+          </div>
+
+        </div>
+
+        <!-- Resim -->
+
+        <div class="form-group full-width">
+
+          <label>Tarif Görseli</label>
+
+          <div class="upload-box">
+
+            <span class="upload-icon">
+              📸
+            </span>
+
+            <div class="upload-content">
+
+              <strong>Fotoğraf Seç</strong>
+
+              <small>
+                JPG, PNG veya WEBP
+              </small>
+
+            </div>
+
+            <input
+              type="file"
+              accept="image/*"
+              (change)="onImageSelected($event)">
+
+          </div>
+
+        </div>
+
+        <div
+          class="image-preview-wrapper full-width"
+          *ngIf="recipeForm.get('image')?.value">
+
+          <img
+            [src]="recipeForm.get('image')?.value"
+            alt="Recipe">
+
+        </div>
+
+        <!-- Püf Noktası -->
+
+        <div class="form-group full-width">
+
+          <label>Püf Noktası</label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              💡
+            </span>
+
+            <input
+              type="text"
+              formControlName="tip"
+              placeholder="İsteğe bağlı...">
+
+          </div>
+
+        </div>
+                <!-- Malzemeler -->
+
+        <div class="form-group full-width">
+
+          <div class="section-title">
+
+            <div>
+              🥕
+            </div>
+
+            <span>
+              Malzemeler
+            </span>
+
+          </div>
+
+          <div formArrayName="ingredients">
+
+            <div
+              class="ingredient-row"
+              *ngFor="let control of ingredientsFields.controls; let i = index">
+
+              <div class="input-wrapper">
+
+                <span class="input-icon">
+                  🥣
+                </span>
+
+                <input
+                  type="text"
+                  [formControlName]="i"
+                  placeholder="Malzeme giriniz">
+
+              </div>
+
+              <button
+                type="button"
+                class="icon-btn delete-btn"
+                (click)="removeIngredient(i)"
+                [disabled]="ingredientsFields.length === 1">
+
+                ✕
+
+              </button>
+
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="add-btn"
+            (click)="addIngredient()">
+
+            <span>＋</span>
+
+            Yeni Malzeme
+
+          </button>
+
+        </div>
+
+        <!-- Hazırlanış -->
+
+        <div class="form-group full-width">
+
+          <div class="section-title">
+
+            <div>
+              👨‍🍳
+            </div>
+
+            <span>
+              Hazırlanışı
+            </span>
+
+          </div>
+
+          <div class="textarea-wrapper">
+
+            <textarea
+              rows="9"
+              formControlName="instructions"
+              placeholder="Her adımı yeni satıra yazın..."></textarea>
+
+          </div>
+
+          <div
+            class="error"
+            *ngIf="recipeForm.get('instructions')?.touched &&
+                   recipeForm.get('instructions')?.invalid">
+
+            <span
+              *ngIf="recipeForm.get('instructions')?.errors?.['required']">
+
+              Hazırlanış zorunludur.
+
+            </span>
+
+            <span
+              *ngIf="recipeForm.get('instructions')?.errors?.['minlength']">
+
+              En az 10 karakter olmalıdır.
+
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Alt Butonlar -->
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          routerLink="/recipes">
+
+          İptal
+
+        </button>
+
+        <button
+          type="submit"
+          class="save-btn">
+
+          <span>
+
+            {{ isEditMode ? '💾 Güncelle' : '🍽️ Tarifi Kaydet' }}
+
+          </span>
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

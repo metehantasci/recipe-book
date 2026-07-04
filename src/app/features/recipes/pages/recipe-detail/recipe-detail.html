@@ -1,0 +1,309 @@
+@if (recipe(); as recipe) {
+
+<div class="detail-page">
+
+  <div class="page-background">
+
+    <img
+      src="recipe-bg.png"
+      class="bg-left"
+      alt="">
+
+    <img
+      src="recipe-bg2.png"
+      class="bg-right"
+      alt="">
+
+  </div>
+
+  <div class="detail-container">
+
+    <a
+      routerLink="/recipes"
+      class="back-button">
+
+      ← Tariflere Dön
+
+    </a>
+
+    <section class="hero">
+
+      <div class="image-wrapper">
+
+        <img
+          class="recipe-image"
+          [src]="recipe.image"
+          [alt]="recipe.title">
+
+        <div class="overlay"></div>
+
+        <span class="category">
+
+          {{ recipe.category }}
+
+        </span>
+
+        <button
+          class="favorite"
+          disabled>
+
+          {{ recipe.favorite ? '❤️ Favori' : '🤍 Favori Değil' }}
+
+        </button>
+
+      </div>
+
+      <div class="hero-content">
+
+        <h1>
+
+          {{ recipe.title }}
+
+        </h1>
+
+        <div class="line"></div>
+
+        <div class="info-cards">
+
+          <div class="info-card">
+
+            <div class="icon">
+
+              ⏱
+
+            </div>
+
+            <div>
+
+              <small>Süre</small>
+
+              <strong>
+
+                {{ recipe.duration }} dk
+
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div class="info-card">
+
+            <div class="icon">
+
+              🍽️
+
+            </div>
+
+            <div>
+
+              <small>Porsiyon</small>
+
+              <strong>
+
+                {{ recipe.servings }} Kişi
+
+              </strong>
+
+            </div>
+
+          </div>
+
+          <div class="info-card">
+
+            <div class="icon">
+
+              ⭐
+
+            </div>
+
+            <div>
+
+              <small>Zorluk</small>
+
+              <strong>
+
+                {{ recipe.difficulty }}
+
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        @if(recipe.tip){
+
+        <div class="tip-card">
+
+          <h3>
+
+            💡 Şefin Tavsiyesi
+
+          </h3>
+
+          <p>
+
+            {{ recipe.tip }}
+
+          </p>
+
+        </div>
+
+        }
+
+      </div>
+
+    </section>
+        <section class="detail-grid">
+
+      <div class="ingredients-card">
+
+        <h2>
+
+          🥕 Malzemeler
+
+        </h2>
+
+        <ul>
+
+          @for (ingredient of recipe.ingredients; track ingredient) {
+
+          <li>
+
+            <span class="check">
+
+              ✓
+
+            </span>
+
+            <span>
+
+              {{ ingredient }}
+
+            </span>
+
+          </li>
+
+          }
+
+        </ul>
+
+      </div>
+
+      <div class="instructions-card">
+
+        <h2>
+
+          👨‍🍳 Hazırlanışı
+
+        </h2>
+
+        <div class="steps">
+
+          @for (step of recipe.instructions; track step; let i = $index) {
+
+          <div class="step">
+
+            <div class="step-number">
+
+              {{ i + 1 }}
+
+            </div>
+
+            <div class="step-text">
+
+              {{ step }}
+
+            </div>
+
+          </div>
+
+          }
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <div class="actions">
+
+      <a
+
+        class="edit-btn"
+
+        [routerLink]="['/recipes', recipe.id, 'edit']">
+
+        ✏ Düzenle
+
+      </a>
+
+      <button
+
+        class="delete-btn"
+
+        (click)="deleteRecipe()">
+
+        🗑 Sil
+
+      </button>
+
+      <a
+
+        routerLink="/recipes"
+
+        class="back-btn">
+
+        ← Listeye Dön
+
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+}
+
+@else {
+
+<section class="not-found">
+
+  <div class="not-found-card">
+
+    <div class="emoji">
+
+      🍳
+
+    </div>
+
+    <h2>
+
+      Tarif Bulunamadı
+
+    </h2>
+
+    <p>
+
+      Aradığınız tarif mevcut değil veya silinmiş olabilir.
+
+    </p>
+
+    <a
+
+      routerLink="/recipes"
+
+      class="back-btn">
+
+      ← Tarif Listesine Dön
+
+    </a>
+
+  </div>
+
+</section>
+
+}

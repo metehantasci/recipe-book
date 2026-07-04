@@ -1,0 +1,164 @@
+<article class="recipe-card">
+
+  <!-- IMAGE -->
+
+  <div class="image-wrapper">
+
+    <img
+      [src]="recipe().image"
+      [alt]="recipe().title">
+
+    <div class="image-overlay"></div>
+
+    <!-- CATEGORY -->
+
+    <span class="category-badge">
+
+      {{ recipe().category }}
+
+    </span>
+
+    <!-- FAVORITE -->
+
+    <button
+      type="button"
+      class="favorite-button"
+      (click)="toggleFavorite()">
+
+      <span *ngIf="recipe().favorite">
+        ❤️
+      </span>
+
+      <span *ngIf="!recipe().favorite">
+        🤍
+      </span>
+
+    </button>
+
+    <!-- DURATION -->
+
+    <div class="duration-chip">
+
+      <span>⏱</span>
+
+      <span>
+
+        {{ recipe().duration }} dk
+
+      </span>
+
+    </div>
+
+  </div>
+
+  <!-- CONTENT -->
+
+  <div class="card-content">
+
+    <h2>
+
+      {{ recipe().title }}
+
+    </h2>
+
+    <div class="divider"></div>
+
+    <div class="meta-list">
+
+      <div class="meta-item">
+
+        <div class="meta-icon">
+
+          🍽️
+
+        </div>
+
+        <div>
+
+          <small>
+
+            Porsiyon
+
+          </small>
+
+          <strong>
+
+            {{ recipe().servings }} Kişi
+
+          </strong>
+
+        </div>
+
+      </div>
+
+      <div class="meta-item">
+
+        <div class="meta-icon">
+
+          ⭐
+
+        </div>
+
+        <div>
+
+          <small>
+
+            Zorluk
+
+          </small>
+
+          <strong>
+
+            {{ recipe().difficulty }}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+        <div class="bottom-section">
+
+      <a
+        class="view-button"
+        [routerLink]="['/recipes', recipe().id]">
+
+        <span>
+
+          Tarifi Gör
+
+        </span>
+
+      </a>
+
+      <div class="action-buttons">
+
+        <a
+          class="icon-button edit"
+          [routerLink]="['/recipes', recipe().id, 'edit']">
+
+          ✏️
+
+        </a>
+
+        <button
+          type="button"
+          class="icon-button delete"
+          (click)="onDelete()">
+
+          🗑️
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Shine Effect -->
+
+  <div class="shine"></div>
+
+</article>
