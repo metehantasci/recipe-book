@@ -98,6 +98,6 @@ Screenshots will be added here.
 
 ## Developer
 
-**Metehan Taşcı**
+**-Metehan Taşcı-**
 
 GitHub: https://github.com/metehantasci
