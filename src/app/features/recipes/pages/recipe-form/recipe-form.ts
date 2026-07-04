@@ -15,6 +15,7 @@ import {
 
 import { Recipe } from '../../models/recipe.model';
 import { RecipesService } from '../../services/recipes.service';
+import { minItemsValidator } from '../../../../shared/validators/min-items.validator';
 
 @Component({
   selector: 'app-recipe-form',
@@ -99,7 +100,10 @@ export class RecipeFormComponent implements OnInit {
 
       ingredients: this.fb.array([
         this.fb.control('', Validators.required)
-      ])
+      ],
+      {
+        validators: [minItemsValidator(1)]
+      })
 
     });
 
@@ -277,6 +281,12 @@ export class RecipeFormComponent implements OnInit {
     }
 
     this.router.navigate(['/recipes']);
+
+  }
+
+  hasUnsavedChanges(): boolean {
+
+    return this.recipeForm?.dirty ?? false;
 
   }
 

@@ -2,13 +2,15 @@ import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Recipe } from '../../models/recipe.model';
+import { CapitalizePipe } from '../../../../shared/pipes/capitalize.pipe';
 
 @Component({
   selector: 'app-recipe-card',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
+    CapitalizePipe
   ],
   templateUrl: './recipe-card.html',
   styleUrl: './recipe-card.scss'
